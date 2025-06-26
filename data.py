@@ -1,6 +1,52 @@
 import json
 import os
 
+def collect_user_data():
+    
+    user_data = load_user_data()
+
+    if user_data:
+        print("\nExisting data found. Would you like to use it or start fresh?")
+        choice = input("Enter 'load' to use existing data or 'new' to enter new data: ").lower().strip()
+        if choice == 'load':
+            return user_data
+        
+    print("Smart Money Guide")
+
+    name = input("Enter your name: ").strip()
+    salary = get_numeric_input("Enter your monthly gross salary (KES): ")
+
+    expenses = {}
+    print("Enter your total fixed monthly expenses (enter 'done' when finished):")
+    while True:
+        category = input("Expense category (e.g., Rent, Utilities, Transport, 'done'): ").strip()
+        if category.lower() == 'done':
+            break
+        if not category:
+            print("Expense category cannot be empty.")
+            continue
+        amount = get_numeric_input(f"Amount for {category}: ", min_value=0)
+        expenses[category] = amount
+
+    print(" Savings Goals")
+    savings_goal_amount = get_numeric_input("Enter your target savings goal amount (e.g., 500000 KES): ", min_value=0)
+    savings_goal_timeframe_months = get_numeric_input("Enter the timeframe for your savings goal in months: ", min_value=1)
+
+
+    # Consolidate all collected data
+    new_data = {
+        "name": name,
+        "monthly_gross_salary": salary,
+        "fixed_monthly_expenses": expenses,
+        "savings_goals": {
+            "target_amount": savings_goal_amount,
+            "timeframe_months": savings_goal_timeframe_months
+        }
+    }
+    
+    save_user_data(new_data) # Saves the newly entered data
+    return new_data
+
 def load_user_data(filename="user_data.json"):
     
     if not os.path.exists(filename):
@@ -30,52 +76,6 @@ def get_numeric_input(prompt, min_value=0):
         except ValueError:
             print("Invalid input. Please enter a number.")
 
-def collect_user_data():
-    
-    user_data = load_user_data()
-
-    if user_data:
-        print("\nExisting data found. Would you like to use it or start fresh?")
-        choice = input("Enter 'load' to use existing data or 'new' to enter new data: ").lower().strip()
-        if choice == 'load':
-            return user_data
-        
-    print("Smart Money Guide")
-
-    salary = get_numeric_input("Enter your monthly gross salary (KES): ")
-
-    expenses = {}
-    print("Enter your total fixed monthly expenses (enter 'done' when finished):")
-    while True:
-        category = input("Expense category (e.g., Rent, Utilities, Transport, 'done'): ").strip()
-        if category.lower() == 'done':
-            break
-        if not category:
-            print("Expense category cannot be empty.")
-            continue
-        amount = get_numeric_input(f"Amount for {category}: ", min_value=0)
-        expenses[category] = amount
-
-    print(" Savings Goals")
-    savings_goal_amount = get_numeric_input("Enter your target savings goal amount (e.g., 500000 KES): ", min_value=0)
-    savings_goal_timeframe_months = get_numeric_input("Enter the timeframe for your savings goal in months: ", min_value=1)
-
-    risk_tolerance = get_risk_tolerance()
-
-    # Consolidate all collected data
-    new_data = {
-        "monthly_gross_salary": salary,
-        "fixed_monthly_expenses": expenses,
-        "savings_goals": {
-            "target_amount": savings_goal_amount,
-            "timeframe_months": savings_goal_timeframe_months
-        },
-        "risk_tolerance": risk_tolerance
-    }
-    
-    save_user_data(new_data) # Saves the newly entered data
-    return new_data
-
 def save_user_data(data, filename="user_data.json"):
     
     try:
@@ -93,3 +93,9 @@ def get_risk_tolerance():
             return risk
         else:
             print("Invalid input. Please choose 'low', 'medium', or 'high'.")
+
+if __name__ == "__main__":
+    user_profile = collect_user_data()
+
+    print("\n--- Summary of Collected Data ---")
+    print(json.dumps(user_profile, indent=4))

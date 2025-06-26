@@ -6,20 +6,20 @@ def calculate_kra_paye(gross_salary):
     # Simplified KRA PAYE Brackets
     # Tier 1: First KES 24,000 @ 10%
     # Tier 2: Next KES 16,667 (24001-32333) @ 25%
-    # Tier 3: Next KES 16,666 (32334-57334) @ 20%
-    # Tier 4: Next KES 16,666 (57335-74000) @ 25%
-    # Tier 5: Above KES 74,000 @ 30%
+    # Tier 3: Next KES 16,666 (32334-500000) @ 30%
+    # Tier 4: Next KES 16,666 (500001-800000) @ 32.5%
+    # Tier 5: Above KES 800,000 @ 35%
 
     if gross_salary <= 24000:
         tax_payable = gross_salary * 0.10
-    elif gross_salary <= 40667:
-        tax_payable = (24000 * 0.10) + ((gross_salary - 24000) * 0.15)
-    elif gross_salary <= 57334:
-        tax_payable = (24000 * 0.10) + (16667 * 0.15) + ((gross_salary - 40667) * 0.20)
-    elif gross_salary <= 74000:
-        tax_payable = (24000 * 0.10) + (16667 * 0.15) + (16667 * 0.20) + ((gross_salary - 57334) * 0.25)
+    elif gross_salary <= 32333:
+        tax_payable = (24000 * 0.10) + ((gross_salary - 24000) * 0.25)
+    elif gross_salary <= 500000:
+        tax_payable = (24000 * 0.10) + (8333 * 0.25) + ((gross_salary - 32333) * 0.30)
+    elif gross_salary <= 800000:
+        tax_payable = (24000 * 0.10) + (8333 * 0.25) + (467667 * 0.30) + ((gross_salary - 500000) * 0.325)
     else:
-        tax_payable = (24000 * 0.10) + (16667 * 0.15) + (16667 * 0.20) + (16667 * 0.25) + ((gross_salary - 74000) * 0.30)
+        tax_payable = (24000 * 0.10) + (8333 * 0.25) + (467667 * 0.30) + (300000 * 0.325) + ((gross_salary - 800000) * 0.35)
     
     # if gross_salary <= 24000:
     #     tax_payable = gross_salary * 0.10

@@ -31,15 +31,10 @@ _Showing indivuals how much tax they pay, where the money goes and how to invest
 _Check all that apply or add your own ideas:_
 
 - [✓] User input (salary,monthly expenditure)
-- [✓] Loops and conditionals
-- [✓] Functions or classes
-- [✓] File handling (`.txt`, `.csv`, or `.json`)
-- [✓] Simple GUI (Tkinter or Pygame)
-- [✓] External API
+- [✓] Tax calculation
+- [✓] File handling 
+- [✓] Simple GUI
 - [✓] Web scraping
-- [ ] Score or data tracking
-- [ ] Restart/quit options
-- [ ] Data visualization (matplotlib, optional)
 
 ---
 
@@ -56,7 +51,6 @@ _Python concepts, libraries, or tools to be used._
 
 ## Data Source (if any)  
 
-- [✓] API (KRA)
 - [✓] Web scraping (MMF's and bond rates)
 - [ ] Local file (manually created `.csv` or `.json`)
 - [ ] No data needed
