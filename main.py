@@ -1,5 +1,4 @@
 import sys
-# Make sure these modules are in the same directory or accessible via Python path
 from data import collect_user_data
 from tax import calculate_net_income
 from investment import suggest_investments
@@ -9,7 +8,7 @@ def main():
     
     print("Welcome to The Smart Money Guide!")
 
-    # Part 1: User Input and Data Collection
+    # User Input and Data Collection
     user_financial_data = collect_user_data()
     if not user_financial_data:
         print("Failed to collect user data. Exiting.")
@@ -20,13 +19,13 @@ def main():
     savings_goals = user_financial_data.get("savings_goals", {})
     #risk_tolerance = user_financial_data.get("risk_tolerance", "low")
 
-    # Part 2: Financial Calculations and Deductions
+    # Financial Calculations and Deductions
     financial_breakdown = calculate_net_income(gross_salary, fixed_expenses)
 
     print("\n--- Your Monthly Financial Breakdown ---")
     print(f"Gross Salary: KES {financial_breakdown['gross_salary']:,.2f}")
     print(f"PAYE Tax: KES {financial_breakdown['paye_tax']:,.2f}")
-    print(f"NHIF Deduction: KES {financial_breakdown['sha_deduction']:,.2f}")
+    print(f"Sha Deduction: KES {financial_breakdown['sha_deduction']:,.2f}")
     print(f"NSSF Deduction: KES {financial_breakdown['nssf_deduction']:,.2f}")
     print(f"Total Statutory Deductions: KES {financial_breakdown['total_statutory_deductions']:,.2f}")
     print(f"Net Salary (After Tax & Deductions): KES {financial_breakdown['net_salary_after_tax']:,.2f}")
@@ -40,7 +39,6 @@ def main():
     print(f"\nRemaining for Savings & Investment: KES {remaining_funds:,.2f}")
 
     # Part 3: Investment Recommendations
-    # Pass savings goal details to get more targeted recommendations
     investment_suggestions = suggest_investments(
         remaining_funds = remaining_funds, 
         savings_goal_amount=savings_goals.get("target_amount", 0),

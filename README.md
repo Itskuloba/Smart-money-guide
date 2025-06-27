@@ -31,10 +31,10 @@ _Showing indivuals how much tax they pay, where the money goes and how to invest
 _Check all that apply or add your own ideas:_
 
 - [✓] User input (salary,monthly expenditure)
-- [✓] Tax calculation
-- [✓] File handling 
+- [✓] Financial calculation
+- [✓] investment recommendations
 - [✓] Simple GUI
-- [✓] Web scraping
+- [✓] Data persitence
 
 ---
 

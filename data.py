@@ -85,14 +85,14 @@ def save_user_data(data, filename="user_data.json"):
     except IOError as e:
         print(f"Error saving data: {e}")
 
-def get_risk_tolerance():
+# def get_risk_tolerance():
    
-    while True:
-        risk = input("Enter your risk tolerance (low, medium, high): ").lower().strip()
-        if risk in ['low', 'medium', 'high']:
-            return risk
-        else:
-            print("Invalid input. Please choose 'low', 'medium', or 'high'.")
+#     while True:
+#         risk = input("Enter your risk tolerance (low, medium, high): ").lower().strip()
+#         if risk in ['low', 'medium', 'high']:
+#             return risk
+#         else:
+#             print("Invalid input. Please choose 'low', 'medium', or 'high'.")
 
 if __name__ == "__main__":
     user_profile = collect_user_data()
