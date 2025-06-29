@@ -3,6 +3,8 @@ from data import collect_user_data
 from tax import calculate_net_income
 from investment import suggest_investments
 from investment import get_mmf_rates
+from investment import calculate_mmf_return
+
 
 def main():
     

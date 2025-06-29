@@ -20,18 +20,6 @@ def calculate_kra_paye(gross_salary):
         tax_payable = (24000 * 0.10) + (8333 * 0.25) + (467667 * 0.30) + ((gross_salary - 500000) * 0.325)
     else:
         tax_payable = (24000 * 0.10) + (8333 * 0.25) + (467667 * 0.30) + (300000 * 0.325) + ((gross_salary - 800000) * 0.35)
-    
-    # if gross_salary <= 24000:
-    #     tax_payable = gross_salary * 0.10
-    # elif gross_salary >= 24001 and gross_salary <= 40667:
-    #     tax_payable = gross_salary * 0.15
-    # elif gross_salary >= 40668 and gross_salary <= 57334:
-    #     tax_payable = gross_salary * 0.20
-    # elif gross_salary >= 57335 and gross_salary <= 74000:
-    #     tax_payable = gross_salary * 0.25
-    # else:
-    #     tax_payable = gross_salary * 0.30
-    
 
 
     # Deduct personal relief
