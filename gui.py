@@ -261,7 +261,7 @@ def generate_excel(user_data: dict, investment_data: list) -> bytes:
                 "Fund Name": entry["name"],
                 "Rate (%)": entry["rate"],
                 "Projected Return (KES)": round(entry["projected_return"], 2),
-                "Website": entry["url"]
+                # "Website": entry["url"]
             })
 
     mmf_df = pd.DataFrame(mmfs)
@@ -277,7 +277,7 @@ def generate_excel(user_data: dict, investment_data: list) -> bytes:
 
     return output.getvalue()
 
-# --- Streamlit Button to Download Excel ---
+#  Streamlit Button to Download Excel 
 if 'user_data' in st.session_state and 'investment_suggestions' in st.session_state:
     st.markdown("### Download Your Full Report as Excel")
     excel_bytes = generate_excel(st.session_state.user_data, st.session_state.investment_suggestions)
@@ -285,7 +285,8 @@ if 'user_data' in st.session_state and 'investment_suggestions' in st.session_st
         label="📊 Download Excel Report",
         data=excel_bytes,
         file_name="smart_money_guide_summary.xlsx",
-        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        key="download_excel_report"
     )
 
 # Streamlit UI Layout 
@@ -293,7 +294,7 @@ if 'user_data' in st.session_state and 'investment_suggestions' in st.session_st
 st.title("💰 The Smart Money Guide")
 st.markdown("A tool to help you understand your finances and explore investment options.")
 
-# --- Input Section ---
+#  Input Section 
 with st.sidebar:
     st.header("Your Financial Inputs")
 
