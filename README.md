@@ -34,7 +34,7 @@ _Check all that apply or add your own ideas:_
 - [✓] Financial calculation
 - [✓] investment recommendations
 - [✓] Simple GUI
-- [✓] Data persitence
+- [✓] Data persistence
 
 ---
 
@@ -54,6 +54,8 @@ _Python concepts, libraries, or tools to be used._
 - [✓] Web scraping (MMF rates)
 - [ ] Local file (manually created `.csv` or `.json`)
 - [ ] No data needed
+- [✓] Hard coding
+
 
 ---
 

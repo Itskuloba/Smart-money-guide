@@ -85,7 +85,7 @@ def get_inputs_from_ui():
         savings_goal_amount = float(st.session_state.savings_goal_amount_input)
         if savings_goal_amount < 0: raise ValueError("Savings goal cannot be negative.")
     except (ValueError, KeyError):
-        st.error("Please enter a valid number for Target Savings Goal.")
+        st.error("Please enter a valid number for Target investment Goal.")
         return None
     
     try:
@@ -99,7 +99,7 @@ def get_inputs_from_ui():
         "name": name,
         "monthly_gross_salary": salary,
         "fixed_monthly_expenses": expenses,
-        "savings_goals": {
+        "investment_goals": {
             "target_amount": savings_goal_amount,
             "timeframe_months": savings_goal_timeframe_months
         }
@@ -278,16 +278,20 @@ def generate_excel(user_data: dict, investment_data: list) -> bytes:
     return output.getvalue()
 
 #  Streamlit Button to Download Excel 
-if 'user_data' in st.session_state and 'investment_suggestions' in st.session_state:
-    st.markdown("### Download Your Full Report as Excel")
-    excel_bytes = generate_excel(st.session_state.user_data, st.session_state.investment_suggestions)
-    st.download_button(
-        label="📊 Download Excel Report",
-        data=excel_bytes,
-        file_name="smart_money_guide_summary.xlsx",
-        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-        key="download_excel_report"
-    )
+
+# if 'user_data' in st.session_state and 'investment_suggestions' in st.session_state:
+#     st.markdown("### Download Your Full Report as Excel")
+#     excel_bytes = generate_excel(st.session_state.user_data, st.session_state.investment_suggestions)
+#     st.download_button(
+#         label="📊 Download Excel Report",
+#         data=excel_bytes,
+#         file_name="smart_money_guide_summary.xlsx",
+#         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+#         key="download_excel_report_main"
+#         # key="download_excel_report_unique"
+
+#     )
+
 
 # Streamlit UI Layout 
 
@@ -328,7 +332,7 @@ with st.sidebar:
 
     st.subheader("Savings Goals:")
     st.number_input(
-        "Target Savings Goal (KES):", 
+        "Target investment Goal (KES):", 
         min_value=0.0, 
         value=st.session_state.user_data.get("savings_goals", {}).get("target_amount", 0.0),
         key="savings_goal_amount_input",
@@ -405,6 +409,26 @@ for suggestion in st.session_state.investment_suggestions:
 if st.session_state.get("needs_rerun", False):
     st.session_state.needs_rerun = False  # Reset the flag
     st.rerun()
+
+    # --- Show Excel Download Button (only once, safely) ---
+if 'user_data' in st.session_state and 'investment_suggestions' in st.session_state:
+    st.markdown("### 📥 Download Your Full Report as Excel")
+
+        # Only generate this once
+    excel_bytes = generate_excel(
+            st.session_state.user_data,
+            st.session_state.investment_suggestions
+        )
+
+        # Unique key to prevent duplication
+    st.download_button(
+            label="📊 Download Excel Report",
+            data=excel_bytes,
+            file_name="smart_money_guide_summary.xlsx",
+            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            key="download_excel_report_main"
+        )
+
 
 if __name__ == "__main__":
     main()

@@ -76,7 +76,7 @@ def suggest_investments(remaining_funds, savings_goal_amount=0, savings_goal_tim
             gap = monthly_deposit - remaining_funds
             results.append({
                 "type": "warning",
-                "message": f"You need to save KES {monthly_deposit:,.2f} per month, but you're short by KES {gap:,.2f}."
+                "message": f"You need to invest KES {monthly_deposit:,.2f} per month, but you're short by KES {gap:,.2f}."
             })
 
     # MMF Investment Suggestions
