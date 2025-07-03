@@ -47,16 +47,12 @@ if 'financial_breakdown' not in st.session_state:
 if 'investment_suggestions' not in st.session_state:
     st.session_state.investment_suggestions = []
 
-# if 'user_name_input' not in st.session_state:
-# #     st.session_state.user_name_input = st.session_state.user_data.get("name", "")
-# if "user_name_input" not in st.session_state:
-#     st.session_state.user_name_input = ""
-# st.session_state.user_name_input = (
-#     st.session_state.user_data.get("name", "")
-#     if isinstance(st.session_state.get("user_data", None), dict)
-#     else ""
-# )
-USERNAME_INPUT_KEY = "user_name_input"
+USERNAME_INPUT_KEY = "user_name_input_sidebar" # Define the constant for the key
+
+# Initialize the specific widget keys if they're not already set by a previous run/load
+if USERNAME_INPUT_KEY not in st.session_state:
+    st.session_state[USERNAME_INPUT_KEY] = st.session_state.user_data.get("name", "")
+
 # if "user_data" not in st.session_state or not isinstance(st.session_state.user_data, dict):
 #     st.session_state.user_data = {
 #         "monthly_gross_salary": 0.0,
@@ -70,21 +66,22 @@ if 'savings_goal_amount_input' not in st.session_state:
     st.session_state.savings_goal_amount_input = st.session_state.user_data.get("savings_goals", {}).get("target_amount", 0.0)
 if 'savings_goal_timeframe_input' not in st.session_state:
     st.session_state.savings_goal_timeframe_input = st.session_state.user_data.get("savings_goals", {}).get("timeframe_months", 12)
-# if 'risk_tolerance_radio' not in st.session_state:
-#     st.session_state.risk_tolerance_radio = st.session_state.user_data.get("risk_tolerance", "low")
 
-
-
-
+# import logging
+# logging.basicConfig(filename='app.log', level=logging.DEBUG)
+# with st.sidebar:
+#     logging.debug("Rendering text_input with key=user_name_input_sidebar")
+#     st.text_input(
+#         "Your Name:",
+#         value=st.session_state.user_data.get("name", ""),
+#         key=USERNAME_INPUT_KEY
+#     )
 # --- Helper Functions for Streamlit UI ---
 
 def get_inputs_from_ui():
     # user_name = st.session_state.user_name_input.strip()
     # user_name = st.session_state.get("user_name_input_main", "").strip()
     user_name = st.session_state.get(USERNAME_INPUT_KEY, "").strip()
-
-
-
 
     if not user_name:
         st.error("Please enter your name.")
