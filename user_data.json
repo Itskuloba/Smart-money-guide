@@ -1,15 +1,11 @@
 {
-    "name": "huiniy",
-    "monthly_gross_salary": 790000.0,
+    "name": "C:\\Users\\nkulo\\AppData\\Local\\Programs\\Python\\Python313\\python.exe c:/Users/nkulo/desktop/Smart-money-guide/gui.py",
+    "monthly_gross_salary": 400000.0,
     "fixed_monthly_expenses": {
-        "Rent": 50000.0,
-        "Utilities": 10000.0,
-        "Food": 10000.0,
-        "Transport": 5000.0,
-        "Other": 30000.0
+        "6800": 6777.0
     },
     "savings_goals": {
-        "target_amount": 4000000.0,
-        "timeframe_months": 12
+        "target_amount": 1000000.0,
+        "timeframe_months": 12.0
     }
 }

@@ -53,13 +53,6 @@ USERNAME_INPUT_KEY = "user_name_input_sidebar" # Define the constant for the key
 if USERNAME_INPUT_KEY not in st.session_state:
     st.session_state[USERNAME_INPUT_KEY] = st.session_state.user_data.get("name", "")
 
-# if "user_data" not in st.session_state or not isinstance(st.session_state.user_data, dict):
-#     st.session_state.user_data = {
-#         "monthly_gross_salary": 0.0,
-#         "fixed_monthly_expenses": {},
-#         "savings_goals": {"target_amount": 0.0, "timeframe_months": 12},
-#         "name": ""
-#     }
 if 'salary_input' not in st.session_state:
     st.session_state.salary_input = st.session_state.user_data.get("monthly_gross_salary", 0.0)
 if 'savings_goal_amount_input' not in st.session_state:
@@ -67,20 +60,9 @@ if 'savings_goal_amount_input' not in st.session_state:
 if 'savings_goal_timeframe_input' not in st.session_state:
     st.session_state.savings_goal_timeframe_input = st.session_state.user_data.get("savings_goals", {}).get("timeframe_months", 12)
 
-# import logging
-# logging.basicConfig(filename='app.log', level=logging.DEBUG)
-# with st.sidebar:
-#     logging.debug("Rendering text_input with key=user_name_input_sidebar")
-#     st.text_input(
-#         "Your Name:",
-#         value=st.session_state.user_data.get("name", ""),
-#         key=USERNAME_INPUT_KEY
-#     )
 # --- Helper Functions for Streamlit UI ---
 
 def get_inputs_from_ui():
-    # user_name = st.session_state.user_name_input.strip()
-    # user_name = st.session_state.get("user_name_input_main", "").strip()
     user_name = st.session_state.get(USERNAME_INPUT_KEY, "").strip()
 
     if not user_name:
@@ -139,7 +121,7 @@ def set_inputs_to_ui(data):
     if not data or not isinstance(data, dict):
         return
     
-    st.session_state.user_name_input = data.get("name", "")
+    st.session_state[USERNAME_INPUT_KEY] = data.get("name", "")
     st.session_state.salary_input = data.get("monthly_gross_salary", 0.0)
 
     # Clear and re-populate expense rows in session state
@@ -299,12 +281,11 @@ st.markdown("A tool to help you understand your finances and explore investment 
 with st.sidebar:
     st.header("Your Financial Inputs")
 
-    st.text_input(
-         "Your Name:",
-         value=st.session_state.user_data.get("name", ""),
-         key=USERNAME_INPUT_KEY
+    st.sidebar.text_input(
+    "Your Name:",
+    value=st.session_state.user_data.get("name", ""),
+    key="user_name_input_sidebar"   # unique to sidebar
     )
-
 
     # Salary Input
     st.number_input(
@@ -344,9 +325,11 @@ with st.sidebar:
         format="%d"
     )
 
-
     st.markdown("---")
     st.button("Calculate & Get Suggestions", on_click=calculate_and_suggest_st, type="primary")
+
+    st.title("Link to the mmf website")
+    st.sidebar.markdown("https://money.ke/mmf-rates/")
 
 
 # Main Area
@@ -360,7 +343,7 @@ if 'financial_breakdown' in st.session_state and st.session_state.financial_brea
     st.subheader("Monthly Financial Breakdown")
     st.write(f"**Gross Salary:** KES {financial_breakdown['gross_salary']:,.2f}")
     st.write(f"**PAYE Tax:** KES {financial_breakdown['paye_tax']:,.2f}")
-    st.write(f"**SHA Deduction:** KES {financial_breakdown.get('sha_deducti', 0):,.2f}") # Use .get for safety
+    st.write(f"**SHA Deduction:** KES {financial_breakdown.get('sha_deduction', 0):,.2f}") # Use .get for safety
     st.write(f"**NSSF Deduction:** KES {financial_breakdown['nssf_deduction']:,.2f}")
     st.write(f"**Total Statutory Deductions:** KES {financial_breakdown['total_statutory_deductions']:,.2f}")
     st.write(f"---")
@@ -424,4 +407,3 @@ if 'investment_suggestions' in st.session_state and st.session_state.investment_
                 #     st.markdown(f"[👉 Visit Website]({suggestion['url']})", unsafe_allow_html=True)
             elif suggestion.get("type") == "highlight":
                 st.success(suggestion["message"])
-

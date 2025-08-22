@@ -34,7 +34,6 @@ def get_mmf_rates():
     
     return mmf_rates
 
-
 def calculate_mmf_return(monthly_deposit, annual_rate, months):
     r = annual_rate / 12  # Monthly rate
     total_deposits = monthly_deposit * months
@@ -126,13 +125,4 @@ def suggest_investments(remaining_funds, savings_goal_amount=0, savings_goal_tim
         results.append({"type": "error", "message": "Could not fetch reliable MMF rates at this time."})
 
     return results
-
-
-
-
-
-
-
-
-
 
